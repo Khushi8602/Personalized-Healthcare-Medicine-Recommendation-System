@@ -1,0 +1,350 @@
+disease,fever,cough,fatigue,difficulty_breathing,age,gender,blood_pressure,cholesterol_level,outcome_variable,risk_level,gender_male,patient_id
+Influenza,1,0,1,1,19,female,0,1,Positive,Low,0,1
+Common Cold,0,1,1,0,25,female,1,1,Negative,Low,0,2
+Eczema,0,1,1,0,25,female,1,1,Negative,Medium,0,3
+Asthma,1,1,0,1,25,male,1,1,Positive,Medium,1,4
+Asthma,1,1,0,1,25,male,1,1,Positive,Medium,1,5
+Eczema,1,0,0,0,25,female,1,1,Positive,Medium,0,6
+Influenza,1,1,1,1,25,female,1,1,Positive,Low,0,7
+Influenza,1,1,1,1,25,female,1,1,Positive,Low,0,8
+Hyperthyroidism,0,1,0,0,28,female,1,1,Negative,Medium,0,9
+Hyperthyroidism,0,1,0,0,28,female,1,1,Negative,Medium,0,10
+Asthma,1,0,0,1,28,male,2,1,Positive,Medium,1,11
+Allergic Rhinitis,0,1,1,0,29,female,1,0,Negative,Low,0,12
+Anxiety Disorders,0,1,0,0,29,female,1,2,Negative,Medium,0,13
+Common Cold,0,0,0,0,29,female,0,1,Negative,Low,0,14
+Diabetes,0,0,0,0,29,male,0,1,Negative,Medium,1,15
+Gastroenteritis,0,1,0,0,29,female,1,1,Negative,Medium,0,16
+Pancreatitis,1,0,0,0,29,female,2,1,Negative,High,0,17
+Rheumatoid Arthritis,0,1,1,1,29,female,2,2,Negative,Medium,0,18
+Depression,1,1,1,1,29,male,2,1,Positive,Medium,1,19
+Liver Cancer,1,1,1,1,29,female,1,1,Positive,High,0,20
+Stroke,1,1,1,1,29,female,1,1,Positive,High,0,21
+Urinary Tract Infection,1,1,1,0,29,male,2,2,Positive,Low,1,22
+Dengue Fever,1,0,1,0,30,female,1,1,Negative,Low,0,23
+Dengue Fever,1,0,1,0,30,female,1,1,Negative,Low,0,24
+Eczema,0,1,1,0,30,male,2,2,Negative,Medium,1,25
+Gastroenteritis,1,1,1,0,30,male,2,2,Negative,Medium,1,26
+Hepatitis,1,1,1,1,30,male,2,1,Negative,Medium,1,27
+Kidney Cancer,0,0,1,0,30,male,1,1,Negative,High,1,28
+Migraine,1,0,0,0,30,female,1,1,Negative,Medium,0,29
+Migraine,0,1,1,0,30,female,1,1,Negative,Medium,0,30
+Muscular Dystrophy,0,0,1,0,30,male,2,2,Negative,Medium,1,31
+Sinusitis,0,1,1,0,30,male,1,1,Negative,Low,1,32
+Ulcerative Colitis,1,1,0,0,30,female,1,1,Negative,Medium,0,33
+Ulcerative Colitis,0,1,1,0,30,female,1,1,Negative,Medium,0,34
+Asthma,1,1,0,1,30,female,1,1,Positive,Medium,0,35
+Asthma,1,1,0,1,30,female,1,1,Positive,Medium,0,36
+Asthma,1,1,1,1,30,female,1,1,Positive,Medium,0,37
+Bipolar Disorder,0,0,1,0,30,female,2,2,Positive,Medium,0,38
+Bronchitis,1,1,0,1,30,female,0,1,Positive,Low,0,39
+Bronchitis,1,1,1,1,30,male,2,2,Positive,Low,1,40
+Bronchitis,1,1,1,1,30,male,2,2,Positive,Low,1,41
+Cerebral Palsy,0,0,1,1,30,female,1,1,Positive,Medium,0,42
+Colorectal Cancer,0,0,1,0,30,female,1,2,Positive,High,0,43
+Eczema,1,0,0,0,30,male,2,2,Positive,Medium,1,44
+Hypertensive Heart Disease,0,0,1,0,30,female,2,2,Positive,Medium,0,45
+Influenza,1,1,1,0,30,male,2,1,Positive,Low,1,46
+Influenza,1,1,1,1,30,female,1,1,Positive,Low,0,47
+Multiple Sclerosis,0,0,1,0,30,female,2,2,Positive,Medium,0,48
+Myocardial Infarction (Heart Attack),1,1,1,1,30,female,2,2,Positive,Medium,0,49
+Urinary Tract Infection,1,0,0,0,30,female,1,1,Positive,Medium,0,50
+Asthma,0,0,0,1,31,male,1,0,Negative,Medium,1,51
+Osteoporosis,0,0,0,1,31,male,0,1,Negative,Medium,1,52
+Common Cold,1,0,1,1,31,male,2,2,Positive,Low,1,53
+Migraine,1,0,0,0,31,female,1,1,Positive,Medium,0,54
+Pneumonia,1,0,1,1,32,female,2,1,Positive,Low,0,55
+Allergic Rhinitis,0,0,1,0,35,female,1,0,Negative,Low,0,56
+Asthma,0,1,1,1,35,female,1,2,Negative,Medium,0,57
+Asthma,1,1,1,1,35,female,1,1,Negative,Medium,0,58
+Asthma,0,1,1,1,35,female,2,1,Negative,Medium,0,59
+Asthma,0,1,1,1,35,female,2,1,Negative,Medium,0,60
+Atherosclerosis,0,0,1,0,35,male,1,1,Negative,Medium,1,61
+Chronic Obstructive Pulmonary Disease (COPD),1,1,1,1,35,male,1,1,Negative,Medium,1,62
+Common Cold,1,1,1,0,35,male,2,1,Negative,Low,1,63
+Eczema,0,1,0,0,35,male,2,1,Negative,Medium,1,64
+Epilepsy,0,0,1,0,35,male,2,2,Negative,Medium,1,65
+Hypertension,1,1,1,0,35,female,2,1,Negative,Medium,0,66
+Hyperthyroidism,1,1,1,0,35,female,1,1,Negative,Medium,0,67
+Obsessive-Compulsive Disorder (OCD),0,0,1,0,35,male,1,1,Negative,Medium,1,68
+Pneumonia,1,1,1,1,35,female,1,1,Negative,Low,0,69
+Pneumonia,1,1,1,1,35,female,1,1,Negative,Low,0,70
+Psoriasis,1,0,0,0,35,female,1,0,Negative,Medium,0,71
+Psoriasis,0,1,1,0,35,female,1,0,Negative,Medium,0,72
+Rubella,1,0,1,0,35,female,2,1,Negative,Low,0,73
+Rubella,1,0,1,0,35,female,2,1,Negative,Low,0,74
+Urinary Tract Infection,0,1,1,0,35,male,2,2,Negative,Medium,1,75
+Asthma,1,1,0,1,35,male,1,1,Positive,Medium,1,76
+Asthma,1,1,0,1,35,male,1,1,Positive,Medium,1,77
+Cirrhosis,0,0,1,0,35,female,1,2,Positive,High,0,78
+Conjunctivitis (Pink Eye),0,1,0,0,35,female,2,2,Positive,Low,0,79
+Depression,0,0,1,0,35,female,1,2,Positive,Medium,0,80
+Gastroenteritis,1,0,1,1,35,male,0,2,Positive,Medium,1,81
+Hyperthyroidism,1,1,1,0,35,male,2,2,Positive,Medium,1,82
+Hyperthyroidism,1,1,1,0,35,male,2,2,Positive,Medium,1,83
+Kidney Cancer,0,0,1,0,35,male,2,2,Positive,High,1,84
+Liver Cancer,0,0,1,0,35,female,2,2,Positive,High,0,85
+Liver Disease,0,0,1,0,35,male,2,2,Positive,High,1,86
+Malaria,1,0,0,0,35,male,2,2,Positive,Medium,1,87
+Malaria,1,0,0,0,35,male,2,2,Positive,Medium,1,88
+Migraine,0,1,1,0,35,male,2,2,Positive,Medium,1,89
+Migraine,1,0,0,0,35,male,2,2,Positive,Medium,1,90
+Pancreatitis,0,0,1,0,35,male,1,2,Positive,High,1,91
+Rheumatoid Arthritis,1,1,1,0,35,male,1,0,Positive,Medium,1,92
+Rheumatoid Arthritis,0,0,1,0,35,female,1,0,Positive,Medium,0,93
+Spina Bifida,0,0,1,0,35,female,1,1,Positive,High,0,94
+Ulcerative Colitis,0,0,1,0,35,male,2,2,Positive,Medium,1,95
+Ulcerative Colitis,1,0,0,0,35,male,2,2,Positive,Medium,1,96
+Urinary Tract Infection,1,0,1,0,35,female,1,2,Positive,Low,0,97
+Allergic Rhinitis,0,1,0,0,38,female,0,1,Negative,Low,0,98
+Depression,0,0,0,0,38,female,1,2,Negative,Medium,0,99
+Gastroenteritis,0,0,0,0,38,male,1,0,Negative,Medium,1,100
+Influenza,0,0,0,0,38,male,1,1,Negative,Low,1,101
+Kidney Disease,0,0,1,0,38,female,0,1,Negative,High,0,102
+Liver Cancer,1,1,0,0,38,female,2,1,Negative,High,0,103
+Liver Disease,0,1,0,1,38,male,0,1,Negative,High,1,104
+Osteoporosis,0,1,0,0,38,female,1,2,Negative,Medium,0,105
+Stroke,1,1,0,0,38,female,2,1,Negative,High,0,106
+Anxiety Disorders,1,0,1,1,38,male,2,2,Positive,Medium,1,107
+Diabetes,1,0,1,1,38,male,2,0,Positive,Medium,1,108
+Migraine,1,1,0,0,38,male,2,2,Positive,Medium,1,109
+Osteoarthritis,1,1,1,0,38,male,2,2,Positive,Medium,1,110
+Pneumonia,1,1,1,1,38,male,1,1,Positive,Low,1,111
+Klinefelter Syndrome,0,0,1,0,39,female,1,1,Positive,Medium,0,112
+Acne,0,0,1,0,40,male,1,1,Negative,Low,1,113
+Brain Tumor,0,0,1,0,40,male,1,1,Negative,High,1,114
+Bronchitis,0,1,0,1,40,female,1,1,Negative,Low,0,115
+Cystic Fibrosis,0,0,1,1,40,male,2,2,Negative,Medium,1,116
+Diabetes,1,0,0,0,40,female,2,2,Negative,Medium,0,117
+Glaucoma,0,0,1,0,40,male,2,1,Negative,Medium,1,118
+Osteoarthritis,0,0,1,0,40,male,2,1,Negative,Medium,1,119
+Rabies,1,1,0,0,40,female,2,1,Negative,High,0,120
+Rabies,1,1,0,0,40,female,2,1,Negative,High,0,121
+Asthma,1,0,1,0,40,male,0,1,Positive,Medium,1,122
+Asthma,1,1,0,1,40,female,1,1,Positive,Medium,0,123
+Asthma,1,1,0,1,40,female,1,1,Positive,Medium,0,124
+Asthma,0,0,1,1,40,male,2,2,Positive,Medium,1,125
+Asthma,1,0,1,1,40,male,1,2,Positive,Medium,1,126
+Asthma,1,0,1,1,40,male,1,2,Positive,Medium,1,127
+Chickenpox,0,1,0,0,40,male,1,2,Positive,Low,1,128
+Chickenpox,0,1,0,0,40,male,1,2,Positive,Low,1,129
+Coronary Artery Disease,0,0,1,0,40,female,2,2,Positive,High,0,130
+"Eating Disorders (Anorexia, Bulimia)",0,0,1,0,40,female,2,2,Positive,Medium,0,131
+Fibromyalgia,0,0,1,0,40,female,2,2,Positive,Medium,0,132
+Gastroenteritis,1,1,1,0,40,male,2,2,Positive,Medium,1,133
+Hemophilia,0,0,1,0,40,female,1,1,Positive,High,0,134
+Hyperthyroidism,0,0,1,0,40,male,2,2,Positive,Medium,1,135
+Hypoglycemia,0,0,1,0,40,female,2,2,Positive,Medium,0,136
+Lymphoma,0,1,0,0,40,female,1,2,Positive,High,0,137
+Pneumonia,1,1,1,1,40,female,1,2,Positive,Low,0,138
+Psoriasis,0,1,1,0,40,male,2,1,Positive,Medium,1,139
+Psoriasis,1,0,0,0,40,male,2,1,Positive,Medium,1,140
+Psoriasis,0,1,0,0,40,female,1,2,Positive,Medium,0,141
+Tuberculosis,1,1,1,1,40,male,2,2,Positive,Medium,1,142
+Tuberculosis,1,1,1,1,40,male,2,2,Positive,Medium,1,143
+Anxiety Disorders,0,0,0,0,42,male,0,1,Negative,Medium,1,144
+Common Cold,1,1,0,0,42,female,2,2,Negative,Low,0,145
+Depression,1,0,0,1,42,male,2,1,Negative,Medium,1,146
+Influenza,0,1,0,0,42,female,1,2,Negative,Low,0,147
+Kidney Cancer,1,0,0,0,42,female,1,1,Negative,High,0,148
+Liver Cancer,1,0,1,1,42,male,1,0,Negative,High,1,149
+Liver Disease,1,0,0,1,42,female,1,1,Negative,High,0,150
+Lung Cancer,1,0,1,1,42,male,1,0,Negative,High,1,151
+Migraine,1,1,1,0,42,male,2,2,Negative,Medium,1,152
+Osteoarthritis,0,0,1,0,42,male,1,0,Negative,Medium,1,153
+Stroke,1,0,1,0,42,male,1,0,Negative,High,1,154
+Urinary Tract Infection,0,1,1,1,42,female,1,0,Negative,Low,0,155
+Diabetes,1,1,1,0,42,male,2,1,Positive,Medium,1,156
+Hypothyroidism,1,1,1,0,42,female,2,2,Positive,Medium,0,157
+Hypothyroidism,1,1,1,0,42,female,2,2,Positive,Medium,0,158
+Kidney Disease,1,0,1,0,42,female,2,0,Positive,High,0,159
+Pneumonia,0,1,1,1,43,female,2,1,Positive,Low,0,160
+Allergic Rhinitis,0,1,1,0,45,male,2,1,Negative,Low,1,161
+Autism Spectrum Disorder (ASD),0,0,1,0,45,male,1,1,Negative,Medium,1,162
+Crohn's Disease,1,0,1,0,45,male,2,1,Negative,Medium,1,163
+Hepatitis,1,0,1,0,45,female,2,2,Negative,Medium,0,164
+Hepatitis,1,0,1,0,45,female,2,2,Negative,Medium,0,165
+Hyperglycemia,0,0,1,0,45,male,1,1,Negative,Medium,1,166
+Kidney Cancer,0,1,1,1,45,male,1,0,Negative,High,1,167
+Kidney Disease,1,1,0,0,45,male,1,2,Negative,High,1,168
+Melanoma,1,0,1,0,45,male,2,1,Negative,High,1,169
+Migraine,0,0,0,0,45,female,0,1,Negative,Medium,0,170
+Ovarian Cancer,0,0,1,0,45,male,1,1,Negative,High,1,171
+Pancreatitis,0,1,1,1,45,male,1,0,Negative,High,1,172
+Rheumatoid Arthritis,1,0,0,0,45,male,1,1,Negative,Medium,1,173
+Stroke,0,0,1,0,45,male,1,1,Negative,High,1,174
+Turner Syndrome,0,0,1,0,45,male,2,2,Negative,Medium,1,175
+Turner Syndrome,0,0,1,0,45,male,2,2,Negative,Medium,1,176
+Urinary Tract Infection,0,0,0,0,45,female,0,1,Negative,Low,0,177
+Zika Virus,0,1,1,0,45,female,2,2,Negative,Low,0,178
+Zika Virus,0,1,1,0,45,female,2,2,Negative,Low,0,179
+Allergic Rhinitis,1,1,1,0,45,male,2,1,Positive,Low,1,180
+Anxiety Disorders,1,1,1,0,45,male,2,1,Positive,Medium,1,181
+Asthma,1,1,0,1,45,male,1,1,Positive,Medium,1,182
+Asthma,1,1,0,1,45,male,1,1,Positive,Medium,1,183
+Cataracts,0,0,1,0,45,female,1,2,Positive,Medium,0,184
+Crohn's Disease,0,0,1,0,45,female,2,2,Positive,Medium,0,185
+Crohn's Disease,1,1,1,0,45,female,2,2,Positive,Medium,0,186
+Depression,0,0,1,0,45,female,2,2,Positive,Medium,0,187
+Diabetes,1,0,1,0,45,female,2,2,Positive,Medium,0,188
+Diabetes,0,1,1,0,45,male,1,2,Positive,Medium,1,189
+Hypertension,1,0,1,0,45,male,1,2,Positive,Medium,1,190
+Hypothyroidism,0,0,1,0,45,female,2,2,Positive,Medium,0,191
+Liver Disease,1,1,1,0,45,female,1,2,Positive,High,0,192
+Multiple Sclerosis,1,0,0,0,45,female,2,2,Positive,Medium,0,193
+Multiple Sclerosis,1,0,0,0,45,female,2,2,Positive,Medium,0,194
+Osteoarthritis,1,0,1,1,45,male,2,1,Positive,Medium,1,195
+Osteoporosis,1,1,1,0,45,female,1,2,Positive,Medium,0,196
+Pneumocystis Pneumonia (PCP),1,1,1,0,45,female,2,2,Positive,High,0,197
+Pneumonia,1,1,1,1,45,male,2,2,Positive,Low,1,198
+Scoliosis,0,0,0,0,45,female,2,2,Positive,Medium,0,199
+Sickle Cell Anemia,0,0,1,0,45,female,1,1,Positive,High,0,200
+Tetanus,0,0,1,0,45,male,1,2,Positive,Medium,1,201
+Tetanus,0,0,1,0,45,male,1,2,Positive,Medium,1,202
+Hypertension,0,0,0,0,48,female,0,2,Negative,Medium,0,203
+Hypothyroidism,0,0,1,0,48,male,1,2,Negative,Medium,1,204
+Hypothyroidism,0,0,1,0,48,male,1,2,Negative,Medium,1,205
+Allergic Rhinitis,1,0,0,0,50,male,2,2,Negative,Low,1,206
+Anemia,0,0,1,0,50,male,1,1,Negative,Medium,1,207
+Anxiety Disorders,0,0,1,0,50,male,1,1,Negative,Medium,1,208
+Cholera,1,0,1,1,50,female,2,2,Negative,Low,0,209
+Cholera,1,0,1,1,50,female,2,2,Negative,Low,0,210
+Crohn's Disease,1,1,1,0,50,male,1,2,Negative,Medium,1,211
+Crohn's Disease,0,0,1,0,50,male,1,2,Negative,Medium,1,212
+Depression,0,1,1,0,50,female,0,0,Negative,Medium,0,213
+Diabetes,0,1,0,0,50,male,1,2,Negative,Medium,1,214
+Endometriosis,1,0,0,0,50,male,2,1,Negative,Medium,1,215
+Hypertension,0,1,0,0,50,female,1,0,Negative,Medium,0,216
+Hypothyroidism,1,1,1,0,50,male,1,2,Negative,Medium,1,217
+Kidney Cancer,0,1,0,0,50,male,0,2,Negative,High,1,218
+Kidney Disease,0,1,0,1,50,male,1,1,Negative,High,1,219
+Pancreatitis,0,1,0,0,50,male,0,2,Negative,High,1,220
+Rheumatoid Arthritis,0,1,0,0,50,female,0,1,Negative,Medium,0,221
+Sepsis,1,1,1,0,50,male,1,1,Negative,High,1,222
+Sleep Apnea,1,0,1,1,50,male,2,2,Negative,Medium,1,223
+Urinary Tract Infection,1,1,0,1,50,male,2,1,Negative,Low,1,224
+Asthma,1,1,1,1,50,female,1,2,Positive,Medium,0,225
+Bronchitis,1,1,1,1,50,male,2,2,Positive,Low,1,226
+Down Syndrome,0,0,1,0,50,female,2,2,Positive,Medium,0,227
+Ebola Virus,1,1,1,1,50,male,1,1,Positive,High,1,228
+Ebola Virus,1,1,1,1,50,male,1,1,Positive,High,1,229
+Eczema,0,1,0,0,50,female,2,2,Positive,Medium,0,230
+Gastroenteritis,1,1,1,1,50,female,2,1,Positive,Medium,0,231
+Klinefelter Syndrome,0,0,1,0,50,female,1,1,Positive,Medium,0,232
+Liver Cancer,0,1,1,1,50,male,2,2,Positive,High,1,233
+Lyme Disease,1,0,0,0,50,male,1,2,Positive,Medium,1,234
+Lyme Disease,1,0,0,0,50,male,1,2,Positive,Medium,1,235
+Pancreatic Cancer,0,0,1,0,50,female,2,2,Positive,High,0,236
+Pneumothorax,0,0,1,1,50,female,2,2,Positive,Medium,0,237
+Stroke,0,1,1,1,50,male,2,2,Positive,High,1,238
+Ulcerative Colitis,0,1,1,0,50,female,1,2,Positive,Medium,0,239
+Hypertension,1,1,0,0,52,male,1,0,Negative,Medium,1,240
+Multiple Sclerosis,0,1,1,0,52,male,1,1,Negative,Medium,1,241
+Multiple Sclerosis,0,1,1,0,52,male,1,1,Negative,Medium,1,242
+Appendicitis,1,0,1,0,55,male,1,1,Negative,Low,1,243
+Bronchitis,0,0,1,1,55,male,2,2,Negative,Low,1,244
+Bronchitis,1,1,1,1,55,male,2,1,Negative,Low,1,245
+Common Cold,1,0,1,1,55,male,1,0,Negative,Low,1,246
+Diabetes,0,1,0,0,55,female,1,2,Negative,Medium,0,247
+Esophageal Cancer,0,0,1,0,55,male,1,1,Negative,Medium,1,248
+HIV/AIDS,1,0,0,0,55,female,2,2,Negative,High,0,249
+HIV/AIDS,1,0,0,0,55,female,2,2,Negative,High,0,250
+Hypertension,0,1,0,0,55,female,1,0,Negative,Medium,0,251
+Liver Disease,0,1,1,0,55,male,2,0,Negative,High,1,252
+Marfan Syndrome,0,0,1,0,55,male,2,2,Negative,Medium,1,253
+Migraine,0,1,1,1,55,female,1,0,Negative,Medium,0,254
+Osteoporosis,0,0,1,0,55,male,2,1,Negative,Medium,1,255
+Parkinson's Disease,0,0,1,0,55,female,1,0,Negative,High,0,256
+Parkinson's Disease,0,0,1,0,55,female,1,0,Negative,High,0,257
+Anxiety Disorders,1,1,0,0,55,female,1,0,Positive,Medium,0,258
+Coronary Artery Disease,0,0,1,0,55,female,1,1,Positive,High,0,259
+Coronary Artery Disease,0,0,1,0,55,female,1,1,Positive,High,0,260
+Hemorrhoids,0,0,0,0,55,female,2,2,Positive,Medium,0,261
+Hypertension,1,0,1,0,55,male,2,1,Positive,Medium,1,262
+Hypothyroidism,0,0,1,0,55,female,2,2,Positive,Medium,0,263
+Osteoarthritis,1,1,0,0,55,female,2,2,Positive,Medium,0,264
+Osteoporosis,1,0,1,1,55,male,2,0,Positive,Medium,1,265
+Osteoporosis,0,1,1,0,55,female,1,1,Positive,Medium,0,266
+Osteoporosis,1,0,1,0,55,female,1,1,Positive,Medium,0,267
+Osteoporosis,1,0,1,0,55,female,1,1,Positive,Medium,0,268
+Polycystic Ovary Syndrome (PCOS),1,1,0,0,55,female,1,1,Positive,Medium,0,269
+Systemic Lupus Erythematosus (SLE),0,1,1,0,55,female,2,2,Positive,Medium,0,270
+Typhoid Fever,0,1,0,0,55,male,1,0,Positive,Medium,1,271
+Typhoid Fever,0,1,0,0,55,male,1,0,Positive,Medium,1,272
+Influenza,1,1,1,1,56,male,2,2,Positive,Low,1,273
+Pneumonia,1,1,0,1,57,male,1,2,Negative,Low,1,274
+Breast Cancer,0,0,1,0,60,male,2,2,Negative,High,1,275
+Coronary Artery Disease,1,1,0,0,60,male,2,2,Negative,High,1,276
+Coronary Artery Disease,1,1,0,0,60,male,2,2,Negative,High,1,277
+Hyperthyroidism,0,0,1,0,60,male,1,1,Negative,Medium,1,278
+Measles,1,1,0,0,60,female,2,1,Negative,Low,0,279
+Measles,1,1,0,0,60,female,2,1,Negative,Low,0,280
+Osteoarthritis,0,1,0,1,60,female,1,1,Negative,Medium,0,281
+Osteomyelitis,0,0,1,0,60,male,1,1,Negative,Medium,1,282
+Osteoporosis,1,0,0,0,60,male,2,2,Negative,Medium,1,283
+Osteoporosis,0,1,0,0,60,male,2,2,Negative,Medium,1,284
+Osteoporosis,0,1,0,0,60,male,2,2,Negative,Medium,1,285
+Polio,1,1,1,0,60,male,1,1,Negative,Medium,1,286
+Asthma,1,1,1,1,60,female,2,2,Positive,Medium,0,287
+Chronic Kidney Disease,0,0,1,0,60,female,1,2,Positive,High,0,288
+Hemophilia,0,0,1,0,60,female,1,1,Positive,High,0,289
+Hepatitis B,0,1,1,0,60,male,1,0,Positive,Medium,1,290
+Hepatitis B,0,1,1,0,60,male,1,0,Positive,Medium,1,291
+Hypertension,0,0,1,0,60,female,2,1,Positive,Medium,0,292
+Hypertension,1,0,1,0,60,male,2,1,Positive,Medium,1,293
+Hypertension,0,0,0,0,60,female,2,2,Positive,Medium,0,294
+Kidney Cancer,1,1,1,0,60,female,2,1,Positive,High,0,295
+Kidney Disease,1,1,1,1,60,female,2,2,Positive,High,0,296
+Osteoporosis,1,0,1,0,60,male,2,1,Positive,Medium,1,297
+Pancreatitis,1,1,1,0,60,female,2,1,Positive,High,0,298
+Parkinson's Disease,1,1,0,0,60,male,2,1,Positive,High,1,299
+Parkinson's Disease,1,1,0,0,60,male,2,1,Positive,High,1,300
+Prader-Willi Syndrome,0,0,1,0,60,female,1,1,Positive,Medium,0,301
+Rheumatoid Arthritis,0,0,1,0,60,female,2,2,Positive,Medium,0,302
+Thyroid Cancer,0,0,1,0,60,female,2,2,Positive,High,0,303
+Tuberculosis,1,1,1,0,60,female,2,2,Positive,Medium,0,304
+Bladder Cancer,0,0,1,0,65,male,1,1,Negative,High,1,305
+Diabetes,0,0,1,0,65,male,1,2,Negative,Medium,1,306
+Otitis Media (Ear Infection),1,1,1,0,65,male,1,1,Negative,Low,1,307
+Stroke,1,0,1,0,65,female,2,0,Negative,High,0,308
+Stroke,1,0,1,0,65,female,2,0,Negative,High,0,309
+Tourette Syndrome,0,0,1,0,65,male,2,2,Negative,Medium,1,310
+Urinary Tract Infection,1,0,1,0,65,male,2,1,Negative,Medium,1,311
+Alzheimer's Disease,0,1,0,0,65,male,1,2,Positive,High,1,312
+Alzheimer's Disease,0,1,0,0,65,male,1,2,Positive,High,1,313
+Alzheimer's Disease,0,0,1,0,65,female,2,2,Positive,High,0,314
+Bronchitis,1,0,1,1,65,male,2,2,Positive,Low,1,315
+Chronic Obstructive Pulmonary Disease (COPD),1,0,1,1,65,female,2,2,Positive,High,0,316
+Chronic Obstructive Pulmonary Disease (COPD),1,0,1,1,65,female,2,2,Positive,High,0,317
+Dementia,0,0,1,0,65,female,2,2,Positive,High,0,318
+Diabetes,1,1,1,0,65,female,1,2,Positive,Medium,0,319
+Diverticulitis,0,0,1,0,65,female,2,2,Positive,Medium,0,320
+Liver Cancer,1,1,1,0,65,female,2,2,Positive,High,0,321
+Lung Cancer,1,1,1,0,65,female,2,2,Positive,High,0,322
+Lung Cancer,1,0,1,0,65,female,1,2,Positive,High,0,323
+Mumps,0,0,1,0,65,male,1,2,Positive,Low,1,324
+Mumps,0,0,1,0,65,male,1,2,Positive,Low,1,325
+Osteoporosis,0,1,1,0,65,female,2,2,Positive,Medium,0,326
+Stroke,1,1,1,0,65,female,2,2,Positive,High,0,327
+Alzheimer's Disease,1,0,1,0,70,female,2,1,Negative,High,0,328
+Alzheimer's Disease,1,0,1,0,70,female,2,1,Negative,High,0,329
+Cholecystitis,0,0,1,0,70,male,1,1,Negative,Medium,1,330
+Chronic Obstructive Pulmonary Disease (COPD),0,1,1,1,70,male,1,2,Negative,High,1,331
+Chronic Obstructive Pulmonary Disease (COPD),0,1,1,1,70,male,1,2,Negative,High,1,332
+Osteoporosis,1,0,0,0,70,male,1,1,Negative,Medium,1,333
+Parkinson's Disease,0,0,1,0,70,male,1,1,Negative,High,1,334
+Prostate Cancer,1,1,0,0,70,male,2,1,Negative,High,1,335
+Schizophrenia,0,1,1,0,70,male,1,1,Negative,Medium,1,336
+Gout,1,0,1,0,70,female,1,2,Positive,Medium,0,337
+Migraine,0,0,1,0,70,female,1,1,Positive,Medium,0,338
+Stroke,0,1,0,0,70,male,1,2,Positive,High,1,339
+Stroke,0,1,0,0,70,male,1,2,Positive,High,1,340
+Testicular Cancer,0,0,1,0,70,female,2,2,Positive,Medium,0,341
+Tonsillitis,1,1,1,0,70,female,2,2,Positive,Low,0,342
+Williams Syndrome,0,0,1,0,70,female,1,1,Positive,Medium,0,343
+Stroke,1,0,1,0,80,female,2,2,Positive,High,0,344
+Stroke,1,0,1,0,80,female,2,2,Positive,High,0,345
+Stroke,1,0,1,0,85,male,2,2,Positive,High,1,346
+Stroke,1,0,1,0,85,male,2,2,Positive,High,1,347
+Stroke,1,0,1,0,90,female,2,2,Positive,High,0,348
+Stroke,1,0,1,0,90,female,2,2,Positive,High,0,349

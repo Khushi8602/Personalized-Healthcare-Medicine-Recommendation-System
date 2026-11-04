@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}HealthReco{% endblock %}</title>
+<style>
+  :root {
+    --bg:#f4f7f9; --card:#fff; --ink:#1f2d3a; --muted:#66788a; --line:#dde5ec;
+    --brand:#1f7a8c; --brand-dark:#16596a;
+    --low:#2e9e6b; --medium:#d99a00; --high:#d64545;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+         background:var(--bg); color:var(--ink); line-height:1.5; }
+  header { background:var(--brand); color:#fff; }
+  .bar { max-width:1000px; margin:0 auto; padding:14px 20px; display:flex;
+         align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+  .logo { font-weight:700; font-size:1.2rem; color:#fff; text-decoration:none; }
+  nav a { color:#e6f4f7; text-decoration:none; margin-left:18px; font-size:.95rem; }
+  nav a:hover { text-decoration:underline; }
+  main { max-width:1000px; margin:24px auto; padding:0 20px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px;
+          padding:22px; margin-bottom:18px; }
+  h1 { margin:0 0 6px; font-size:1.6rem; }
+  h2 { margin:0 0 12px; font-size:1.15rem; }
+  h3 { margin:14px 0 6px; font-size:1rem; color:var(--brand-dark); }
+  .muted { color:var(--muted); font-size:.92rem; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  @media (max-width:760px){ .grid2,.grid3 { grid-template-columns:1fr; } }
+  label { display:block; font-weight:600; margin:12px 0 4px; font-size:.93rem; }
+  input[type=number], select { width:100%; padding:10px; border:1px solid var(--line);
+         border-radius:8px; font-size:1rem; background:#fff; }
+  .checks { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .check { display:flex; align-items:center; gap:8px; padding:10px 12px; border:1px solid var(--line);
+           border-radius:8px; cursor:pointer; font-weight:500; margin:0; }
+  .check input { width:18px; height:18px; }
+  .check:has(input:checked) { border-color:var(--brand); background:#e8f4f7; }
+  button, .btn { background:var(--brand); color:#fff; border:0; border-radius:8px; padding:12px 22px;
+         font-size:1rem; cursor:pointer; text-decoration:none; display:inline-block; }
+  button:hover, .btn:hover { background:var(--brand-dark); }
+  .btn.light { background:#e8f4f7; color:var(--brand-dark); }
+  .error { background:#fdecec; border:1px solid #f3bcbc; color:#9b2c2c; padding:10px 14px;
+           border-radius:8px; margin-bottom:14px; }
+  .notice { background:#fff8e6; border:1px solid #f0dca0; color:#6b5200; padding:10px 14px;
+            border-radius:8px; font-size:.92rem; }
+  .badge { display:inline-block; padding:4px 12px; border-radius:20px; color:#fff;
+           font-weight:600; font-size:.9rem; }
+  .badge.Low { background:var(--low); } .badge.Medium { background:var(--medium); }
+  .badge.High { background:var(--high); }
+  .chip { display:inline-block; background:#e8f4f7; color:var(--brand-dark); padding:3px 10px;
+          border-radius:14px; font-size:.85rem; margin:2px 4px 2px 0; }
+  .bar-row { margin:10px 0; }
+  .bar-top { display:flex; justify-content:space-between; font-size:.93rem; }
+  .bar-bg { background:#e9eef2; height:10px; border-radius:6px; overflow:hidden; }
+  .bar-fill { height:100%; background:var(--brand); border-radius:6px; }
+  ul.tips { margin:4px 0 0; padding-left:20px; } ul.tips li { margin:3px 0; }
+  .doctor { border-left:4px solid var(--high); background:#fdf3f3; padding:8px 14px; border-radius:6px; }
+  table { width:100%; border-collapse:collapse; font-size:.93rem; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); }
+  th { background:#eef3f6; position:sticky; top:0; }
+  tr:hover td { background:#f7fafb; }
+  .med { border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .med b { display:block; }
+  img.chart { max-width:100%; border:1px solid var(--line); border-radius:8px; background:#fff; }
+  footer { text-align:center; color:var(--muted); font-size:.85rem; padding:10px 20px 30px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="logo" href="/">+ HealthReco</a>
+    <nav>
+      <a href="/">New check</a>
+      <a href="/patients">Patient records</a>
+      <a href="/insights">Data &amp; models</a>
+    </nav>
+  </div>
+</header>
+<main>
+  {% block content %}{% endblock %}
+</main>
+<footer>
+  Student project for learning. Not medical advice, not a diagnosis. Always confirm medicines and doses with a doctor or pharmacist.
+</footer>
+</body>
+</html>

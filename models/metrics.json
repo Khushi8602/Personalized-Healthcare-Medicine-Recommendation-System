@@ -1,0 +1,1276 @@
+{
+  "environment": {
+    "sklearn": "1.7.0",
+    "tensorflow": "2.21.0"
+  },
+  "ml_name": "Support Vector Classifier (linear)",
+  "dl_name": "Neural network (64-32)",
+  "dl_backend": "TensorFlow / Keras",
+  "ml_top1": 0.08333333333333333,
+  "ml_top3": 0.13333333333333333,
+  "dl_top1": 0.05333333333333334,
+  "dl_top3": 0.14,
+  "combined_top1": 0.06,
+  "combined_top3": 0.14666666666666667,
+  "baseline_top1": 0.05333333333333334,
+  "n_patients": 349,
+  "n_unique_patients": 300,
+  "n_diseases": 114,
+  "n_medicines": 9626,
+  "profiles": {
+    "Acne": {
+      "risk": "Low",
+      "patients": 1,
+      "avg_age": 40.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Allergic Rhinitis": {
+      "risk": "Low",
+      "patients": 6,
+      "avg_age": 40.3,
+      "symptom_rate": {
+        "fever": 0.33,
+        "cough": 0.67,
+        "fatigue": 0.67,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Alzheimer's Disease": {
+      "risk": "High",
+      "patients": 5,
+      "avg_age": 67.0,
+      "symptom_rate": {
+        "fever": 0.4,
+        "cough": 0.4,
+        "fatigue": 0.6,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Anemia": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 50.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Anxiety Disorders": {
+      "risk": "Medium",
+      "patients": 6,
+      "avg_age": 43.2,
+      "symptom_rate": {
+        "fever": 0.5,
+        "cough": 0.5,
+        "fatigue": 0.5,
+        "difficulty_breathing": 0.17
+      }
+    },
+    "Appendicitis": {
+      "risk": "Low",
+      "patients": 1,
+      "avg_age": 55.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Asthma": {
+      "risk": "Medium",
+      "patients": 23,
+      "avg_age": 36.9,
+      "symptom_rate": {
+        "fever": 0.78,
+        "cough": 0.74,
+        "fatigue": 0.48,
+        "difficulty_breathing": 0.96
+      }
+    },
+    "Atherosclerosis": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 35.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Autism Spectrum Disorder (ASD)": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 45.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Bipolar Disorder": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 30.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Bladder Cancer": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 65.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Brain Tumor": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 40.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Breast Cancer": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 60.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Bronchitis": {
+      "risk": "Low",
+      "patients": 8,
+      "avg_age": 44.4,
+      "symptom_rate": {
+        "fever": 0.75,
+        "cough": 0.75,
+        "fatigue": 0.75,
+        "difficulty_breathing": 1.0
+      }
+    },
+    "Cataracts": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 45.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Cerebral Palsy": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 30.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 1.0
+      }
+    },
+    "Chickenpox": {
+      "risk": "Low",
+      "patients": 2,
+      "avg_age": 40.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 1.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Cholecystitis": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 70.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Cholera": {
+      "risk": "Low",
+      "patients": 2,
+      "avg_age": 50.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 1.0
+      }
+    },
+    "Chronic Kidney Disease": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 60.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Chronic Obstructive Pulmonary Disease (COPD)": {
+      "risk": "High",
+      "patients": 5,
+      "avg_age": 61.0,
+      "symptom_rate": {
+        "fever": 0.6,
+        "cough": 0.6,
+        "fatigue": 1.0,
+        "difficulty_breathing": 1.0
+      }
+    },
+    "Cirrhosis": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 35.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Colorectal Cancer": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 30.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Common Cold": {
+      "risk": "Low",
+      "patients": 6,
+      "avg_age": 36.2,
+      "symptom_rate": {
+        "fever": 0.67,
+        "cough": 0.5,
+        "fatigue": 0.67,
+        "difficulty_breathing": 0.33
+      }
+    },
+    "Conjunctivitis (Pink Eye)": {
+      "risk": "Low",
+      "patients": 1,
+      "avg_age": 35.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 1.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Coronary Artery Disease": {
+      "risk": "High",
+      "patients": 5,
+      "avg_age": 54.0,
+      "symptom_rate": {
+        "fever": 0.4,
+        "cough": 0.4,
+        "fatigue": 0.6,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Crohn's Disease": {
+      "risk": "Medium",
+      "patients": 5,
+      "avg_age": 47.0,
+      "symptom_rate": {
+        "fever": 0.6,
+        "cough": 0.4,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Cystic Fibrosis": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 40.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 1.0
+      }
+    },
+    "Dementia": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 65.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Dengue Fever": {
+      "risk": "Low",
+      "patients": 2,
+      "avg_age": 30.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Depression": {
+      "risk": "Medium",
+      "patients": 6,
+      "avg_age": 39.8,
+      "symptom_rate": {
+        "fever": 0.33,
+        "cough": 0.33,
+        "fatigue": 0.67,
+        "difficulty_breathing": 0.33
+      }
+    },
+    "Diabetes": {
+      "risk": "Medium",
+      "patients": 10,
+      "avg_age": 47.4,
+      "symptom_rate": {
+        "fever": 0.5,
+        "cough": 0.5,
+        "fatigue": 0.6,
+        "difficulty_breathing": 0.1
+      }
+    },
+    "Diverticulitis": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 65.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Down Syndrome": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 50.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Eating Disorders (Anorexia, Bulimia)": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 40.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Ebola Virus": {
+      "risk": "High",
+      "patients": 2,
+      "avg_age": 50.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 1.0
+      }
+    },
+    "Eczema": {
+      "risk": "Medium",
+      "patients": 6,
+      "avg_age": 32.5,
+      "symptom_rate": {
+        "fever": 0.33,
+        "cough": 0.67,
+        "fatigue": 0.33,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Endometriosis": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 50.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Epilepsy": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 35.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Esophageal Cancer": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 55.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Fibromyalgia": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 40.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Gastroenteritis": {
+      "risk": "Medium",
+      "patients": 6,
+      "avg_age": 37.0,
+      "symptom_rate": {
+        "fever": 0.67,
+        "cough": 0.67,
+        "fatigue": 0.67,
+        "difficulty_breathing": 0.33
+      }
+    },
+    "Glaucoma": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 40.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Gout": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 70.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "HIV/AIDS": {
+      "risk": "High",
+      "patients": 2,
+      "avg_age": 55.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Hemophilia": {
+      "risk": "High",
+      "patients": 2,
+      "avg_age": 50.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Hemorrhoids": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 55.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Hepatitis": {
+      "risk": "Medium",
+      "patients": 3,
+      "avg_age": 40.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.33,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.33
+      }
+    },
+    "Hepatitis B": {
+      "risk": "Medium",
+      "patients": 2,
+      "avg_age": 60.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Hyperglycemia": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 45.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Hypertension": {
+      "risk": "Medium",
+      "patients": 10,
+      "avg_age": 52.0,
+      "symptom_rate": {
+        "fever": 0.5,
+        "cough": 0.4,
+        "fatigue": 0.5,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Hypertensive Heart Disease": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 30.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Hyperthyroidism": {
+      "risk": "Medium",
+      "patients": 7,
+      "avg_age": 37.3,
+      "symptom_rate": {
+        "fever": 0.43,
+        "cough": 0.71,
+        "fatigue": 0.71,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Hypoglycemia": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 40.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Hypothyroidism": {
+      "risk": "Medium",
+      "patients": 7,
+      "avg_age": 47.1,
+      "symptom_rate": {
+        "fever": 0.43,
+        "cough": 0.43,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Influenza": {
+      "risk": "Low",
+      "patients": 8,
+      "avg_age": 33.1,
+      "symptom_rate": {
+        "fever": 0.75,
+        "cough": 0.75,
+        "fatigue": 0.75,
+        "difficulty_breathing": 0.62
+      }
+    },
+    "Kidney Cancer": {
+      "risk": "High",
+      "patients": 6,
+      "avg_age": 43.7,
+      "symptom_rate": {
+        "fever": 0.33,
+        "cough": 0.5,
+        "fatigue": 0.67,
+        "difficulty_breathing": 0.17
+      }
+    },
+    "Kidney Disease": {
+      "risk": "High",
+      "patients": 5,
+      "avg_age": 47.0,
+      "symptom_rate": {
+        "fever": 0.6,
+        "cough": 0.6,
+        "fatigue": 0.6,
+        "difficulty_breathing": 0.4
+      }
+    },
+    "Klinefelter Syndrome": {
+      "risk": "Medium",
+      "patients": 2,
+      "avg_age": 44.5,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Liver Cancer": {
+      "risk": "High",
+      "patients": 6,
+      "avg_age": 43.2,
+      "symptom_rate": {
+        "fever": 0.67,
+        "cough": 0.67,
+        "fatigue": 0.83,
+        "difficulty_breathing": 0.5
+      }
+    },
+    "Liver Disease": {
+      "risk": "High",
+      "patients": 5,
+      "avg_age": 43.0,
+      "symptom_rate": {
+        "fever": 0.4,
+        "cough": 0.6,
+        "fatigue": 0.6,
+        "difficulty_breathing": 0.4
+      }
+    },
+    "Lung Cancer": {
+      "risk": "High",
+      "patients": 3,
+      "avg_age": 57.3,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.33,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.33
+      }
+    },
+    "Lyme Disease": {
+      "risk": "Medium",
+      "patients": 2,
+      "avg_age": 50.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Lymphoma": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 40.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 1.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Malaria": {
+      "risk": "Medium",
+      "patients": 2,
+      "avg_age": 35.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Marfan Syndrome": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 55.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Measles": {
+      "risk": "Low",
+      "patients": 2,
+      "avg_age": 60.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Melanoma": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 45.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Migraine": {
+      "risk": "Medium",
+      "patients": 10,
+      "avg_age": 41.1,
+      "symptom_rate": {
+        "fever": 0.5,
+        "cough": 0.5,
+        "fatigue": 0.5,
+        "difficulty_breathing": 0.1
+      }
+    },
+    "Multiple Sclerosis": {
+      "risk": "Medium",
+      "patients": 5,
+      "avg_age": 44.8,
+      "symptom_rate": {
+        "fever": 0.4,
+        "cough": 0.4,
+        "fatigue": 0.6,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Mumps": {
+      "risk": "Low",
+      "patients": 2,
+      "avg_age": 65.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Muscular Dystrophy": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 30.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Myocardial Infarction (Heart Attack)": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 30.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 1.0
+      }
+    },
+    "Obsessive-Compulsive Disorder (OCD)": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 35.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Osteoarthritis": {
+      "risk": "Medium",
+      "patients": 6,
+      "avg_age": 46.7,
+      "symptom_rate": {
+        "fever": 0.5,
+        "cough": 0.5,
+        "fatigue": 0.67,
+        "difficulty_breathing": 0.33
+      }
+    },
+    "Osteomyelitis": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 60.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Osteoporosis": {
+      "risk": "Medium",
+      "patients": 14,
+      "avg_age": 54.6,
+      "symptom_rate": {
+        "fever": 0.5,
+        "cough": 0.43,
+        "fatigue": 0.57,
+        "difficulty_breathing": 0.14
+      }
+    },
+    "Otitis Media (Ear Infection)": {
+      "risk": "Low",
+      "patients": 1,
+      "avg_age": 65.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Ovarian Cancer": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 45.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Pancreatic Cancer": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 50.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Pancreatitis": {
+      "risk": "High",
+      "patients": 5,
+      "avg_age": 43.8,
+      "symptom_rate": {
+        "fever": 0.4,
+        "cough": 0.6,
+        "fatigue": 0.6,
+        "difficulty_breathing": 0.2
+      }
+    },
+    "Parkinson's Disease": {
+      "risk": "High",
+      "patients": 5,
+      "avg_age": 60.0,
+      "symptom_rate": {
+        "fever": 0.4,
+        "cough": 0.4,
+        "fatigue": 0.6,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Pneumocystis Pneumonia (PCP)": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 45.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Pneumonia": {
+      "risk": "Low",
+      "patients": 8,
+      "avg_age": 40.6,
+      "symptom_rate": {
+        "fever": 0.88,
+        "cough": 0.88,
+        "fatigue": 0.88,
+        "difficulty_breathing": 1.0
+      }
+    },
+    "Pneumothorax": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 50.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 1.0
+      }
+    },
+    "Polio": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 60.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Polycystic Ovary Syndrome (PCOS)": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 55.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Prader-Willi Syndrome": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 60.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Prostate Cancer": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 70.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Psoriasis": {
+      "risk": "Medium",
+      "patients": 5,
+      "avg_age": 38.0,
+      "symptom_rate": {
+        "fever": 0.4,
+        "cough": 0.6,
+        "fatigue": 0.4,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Rabies": {
+      "risk": "High",
+      "patients": 2,
+      "avg_age": 40.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Rheumatoid Arthritis": {
+      "risk": "Medium",
+      "patients": 6,
+      "avg_age": 42.3,
+      "symptom_rate": {
+        "fever": 0.33,
+        "cough": 0.5,
+        "fatigue": 0.67,
+        "difficulty_breathing": 0.17
+      }
+    },
+    "Rubella": {
+      "risk": "Low",
+      "patients": 2,
+      "avg_age": 35.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Schizophrenia": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 70.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Scoliosis": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 45.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Sepsis": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 50.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Sickle Cell Anemia": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 45.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Sinusitis": {
+      "risk": "Low",
+      "patients": 1,
+      "avg_age": 30.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Sleep Apnea": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 50.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 1.0
+      }
+    },
+    "Spina Bifida": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 35.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Stroke": {
+      "risk": "High",
+      "patients": 16,
+      "avg_age": 65.6,
+      "symptom_rate": {
+        "fever": 0.75,
+        "cough": 0.38,
+        "fatigue": 0.81,
+        "difficulty_breathing": 0.12
+      }
+    },
+    "Systemic Lupus Erythematosus (SLE)": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 55.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Testicular Cancer": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 70.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Tetanus": {
+      "risk": "Medium",
+      "patients": 2,
+      "avg_age": 45.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Thyroid Cancer": {
+      "risk": "High",
+      "patients": 1,
+      "avg_age": 60.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Tonsillitis": {
+      "risk": "Low",
+      "patients": 1,
+      "avg_age": 70.0,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Tourette Syndrome": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 65.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Tuberculosis": {
+      "risk": "Medium",
+      "patients": 3,
+      "avg_age": 46.7,
+      "symptom_rate": {
+        "fever": 1.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.67
+      }
+    },
+    "Turner Syndrome": {
+      "risk": "Medium",
+      "patients": 2,
+      "avg_age": 45.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Typhoid Fever": {
+      "risk": "Medium",
+      "patients": 2,
+      "avg_age": 55.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 1.0,
+        "fatigue": 0.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Ulcerative Colitis": {
+      "risk": "Medium",
+      "patients": 5,
+      "avg_age": 36.0,
+      "symptom_rate": {
+        "fever": 0.4,
+        "cough": 0.6,
+        "fatigue": 0.6,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Urinary Tract Infection": {
+      "risk": "Low",
+      "patients": 8,
+      "avg_age": 41.4,
+      "symptom_rate": {
+        "fever": 0.62,
+        "cough": 0.5,
+        "fatigue": 0.62,
+        "difficulty_breathing": 0.25
+      }
+    },
+    "Williams Syndrome": {
+      "risk": "Medium",
+      "patients": 1,
+      "avg_age": 70.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 0.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    },
+    "Zika Virus": {
+      "risk": "Low",
+      "patients": 2,
+      "avg_age": 45.0,
+      "symptom_rate": {
+        "fever": 0.0,
+        "cough": 1.0,
+        "fatigue": 1.0,
+        "difficulty_breathing": 0.0
+      }
+    }
+  }
+}

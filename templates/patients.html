@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Patient records | HealthReco{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Patient records</h1>
+  <p class="muted">All {{ rows|length }} patients from the dataset. Open any row to see the medicine and care recommendation for that patient.</p>
+  <input type="text" id="filter" placeholder="Filter by disease, risk, gender..." style="width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;margin:10px 0">
+  <div style="max-height:560px;overflow:auto">
+    <table id="tbl">
+      <thead><tr><th>#</th><th>Diagnosis</th><th>Age</th><th>Gender</th><th>Risk</th><th>Outcome</th><th></th></tr></thead>
+      <tbody>
+      {% for p in rows %}
+        <tr>
+          <td>{{ p.patient_id }}</td>
+          <td>{{ p.disease }}</td>
+          <td>{{ p.age }}</td>
+          <td>{{ p.gender }}</td>
+          <td><span class="badge {{ p.risk_level }}">{{ p.risk_level }}</span></td>
+          <td>{{ p.outcome_variable }}</td>
+          <td><a href="/patient/{{ p.patient_id }}">View</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  // simple client-side filter, no library needed
+  document.getElementById('filter').addEventListener('input', function () {
+    var q = this.value.toLowerCase();
+    document.querySelectorAll('#tbl tbody tr').forEach(function (tr) {
+      tr.style.display = tr.textContent.toLowerCase().indexOf(q) === -1 ? 'none' : '';
+    });
+  });
+</script>
+{% endblock %}

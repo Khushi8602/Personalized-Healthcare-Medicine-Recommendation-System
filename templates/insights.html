@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Data and models | HealthReco{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Data &amp; models</h1>
+  <p class="muted">{{ m.n_patients }} patient rows ({{ m.n_unique_patients }} unique), {{ m.n_diseases }} diseases, {{ "{:,}".format(m.n_medicines) }} medicines.</p>
+  <div class="grid3" style="margin-top:12px">
+    <div class="med"><div class="muted">Machine learning model</div><b>{{ m.ml_name }}</b>
+      top-1 {{ (m.ml_top1 * 100)|round(1) }}% &middot; top-3 {{ (m.ml_top3 * 100)|round(1) }}%</div>
+    <div class="med"><div class="muted">Deep learning model</div><b>{{ m.dl_name }}</b> <span class="muted">({{ m.dl_backend }})</span><br>
+      top-1 {{ (m.dl_top1 * 100)|round(1) }}% &middot; top-3 {{ (m.dl_top3 * 100)|round(1) }}%</div>
+    <div class="med"><div class="muted">Both models combined</div><b>Average of the two</b><br>
+      top-1 {{ (m.combined_top1 * 100)|round(1) }}% &middot; top-3 {{ (m.combined_top3 * 100)|round(1) }}%</div>
+  </div>
+  <p class="muted" style="margin-top:10px">Always guessing the most common disease scores {{ (m.baseline_top1 * 100)|round(1) }}%.</p>
+</div>
+
+<div class="card">
+  <h2>How to read these numbers</h2>
+  <ul class="tips">
+    <li>Top-1 means the first guess is right. Top-3 means the right disease is among the three best guesses.</li>
+    <li>The project keeps only one machine learning model (the best of the ones tried) and one deep learning model. The app shows both, and ranks diseases by the average of their probabilities.</li>
+    <li>All three scores are close to guessing. With {{ m.n_diseases }} diseases, around 3 patients each, and only 8 inputs, the data cannot separate them. The gaps between the models are within normal run-to-run variation, so none of them is clearly better.</li>
+    <li>Scores were measured on unique rows only, with 5-fold cross-validation. Counting repeated rows would inflate them.</li>
+    <li>That is why the form lets a patient pick a known diagnosis. Medicines and care tips then depend on that diagnosis, not on the weak guess.</li>
+    <li>Risk level is nearly fixed per disease in this file, so it is looked up from the disease.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Model scores</h2>
+  <img class="chart" src="/eda/model_scores.png" alt="Model scores chart">
+</div>
+
+<div class="card">
+  <h2>Exploring the data</h2>
+  <div class="grid2">
+    <img class="chart" src="/eda/top_diseases.png" alt="Top diseases">
+    <img class="chart" src="/eda/risk_levels.png" alt="Risk levels">
+    <img class="chart" src="/eda/symptoms_by_outcome.png" alt="Symptoms by outcome">
+    <img class="chart" src="/eda/correlations.png" alt="Correlations">
+    <img class="chart" src="/eda/medicine_groups.png" alt="Medicine groups">
+  </div>
+</div>
+{% endblock %}

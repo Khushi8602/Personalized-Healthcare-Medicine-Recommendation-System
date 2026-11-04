@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %}Your recommendation | HealthReco{% endblock %}
+{% block content %}
+
+<div class="card">
+  {% if patient %}
+    <p class="muted">Patient record #{{ patient.id }}</p>
+  {% endif %}
+  <h1>{{ r.disease }}</h1>
+  <p class="muted" style="margin-bottom:12px">
+    {% if r.basis == 'diagnosis' %}Based on the recorded or selected diagnosis{% else %}Top guess from your symptoms (low certainty){% endif %}
+  </p>
+  <div class="grid3">
+    <div>
+      <div class="muted">Risk level</div>
+      <span class="badge {{ r.risk }}">{{ r.risk }}</span>
+    </div>
+    <div>
+      {% if patient %}
+      <div class="muted">Recorded outcome</div>
+      <b>{{ patient.outcome }}</b>
+      {% elif r.basis != 'diagnosis' %}
+      <div class="muted">Each model's first pick</div>
+      <div><b>ML:</b> {{ r.picks.ml }}</div>
+      <div><b>Deep learning:</b> {{ r.picks.dl }}</div>
+      {% else %}
+      <div class="muted">Condition</div>
+      <b>Chosen by you</b>
+      {% endif %}
+    </div>
+    <div>
+      <div class="muted">Patient</div>
+      <b>{{ r.inputs.age }} yrs, {{ 'Male' if r.inputs.gender_male else 'Female' }}</b>
+    </div>
+  </div>
+  <p style="margin-top:14px">{{ r.urgency }}</p>
+  <div>
+    {% for s in r.symptom_text %}<span class="chip">{{ s }}</span>{% endfor %}
+    <span class="chip">BP: {{ r.bp_label }}</span>
+    <span class="chip">Cholesterol: {{ r.chol_label }}</span>
+  </div>
+</div>
+
+{% if r.flags %}
+<div class="notice" style="margin-bottom:18px">
+  <b>Things to watch</b>
+  <ul class="tips">{% for f in r.flags %}<li>{{ f }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+
+{% if r.basis != 'diagnosis' %}
+<div class="notice" style="margin-bottom:18px">
+  <b>Low certainty.</b> From symptoms alone the first pick of the two models together is right about {{ (m.combined_top1 * 100)|round|int }}% of the time, and the right disease is somewhere in their top 3 about {{ (m.combined_top3 * 100)|round|int }}% of the time. The medicines and tips below are for the first pick. If another condition below fits better, or you already have a diagnosis, press <b>Use this</b> to switch.
+</div>
+<div class="card">
+  <h2>Possible conditions</h2>
+  {% for g in r.guesses %}
+  <div class="bar-row">
+    <div class="bar-top">
+      <span>{{ g.name }} <span class="chip">{{ g.risk }} risk</span></span>
+      <span>
+        <span class="muted">ML {{ g.ml }}% &middot; DL {{ g.dl }}%</span> &nbsp; <b>{{ g.score }}%</b>
+        {% if g.name != r.disease %}
+        <form method="post" action="/predict" style="display:inline">
+          <input type="hidden" name="age" value="{{ r.inputs.age }}">
+          <input type="hidden" name="gender" value="{{ 'male' if r.inputs.gender_male else 'female' }}">
+          <input type="hidden" name="blood_pressure" value="{{ r.inputs.blood_pressure }}">
+          <input type="hidden" name="cholesterol_level" value="{{ r.inputs.cholesterol_level }}">
+          {% for s in ['fever','cough','fatigue','difficulty_breathing'] %}{% if r.inputs[s] %}<input type="hidden" name="{{ s }}" value="on">{% endif %}{% endfor %}
+          <input type="hidden" name="known_disease" value="{{ g.name }}">
+          <button type="submit" style="padding:3px 10px;font-size:.8rem;margin-left:8px">Use this</button>
+        </form>
+        {% endif %}
+      </span>
+    </div>
+    <div class="bar-bg"><div class="bar-fill" style="width: {{ [g.score * 3, 100]|min }}%"></div></div>
+  </div>
+  {% endfor %}
+  <p class="muted">The bar shows the combined score (average of the ML and deep learning probabilities). Bars are stretched 3x so small differences are visible.</p>
+</div>
+{% endif %}
+
+<div class="card">
+  <h2>Medicines from the drug list</h2>
+  {% if r.med_note %}<div class="notice" style="margin-bottom:12px">{{ r.med_note }}</div>{% endif %}
+  {% if r.medicines %}
+    <div class="grid2">
+      {% for m in r.medicines %}
+      <div class="med">
+        <b>{{ m.name }}</b>
+        <span class="chip">{{ m.group }}</span>
+        <div class="muted">{{ m.use }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="muted" style="margin-top:12px">These are products listed for this type of condition, ranked by how closely their description matches the patient. They are not a prescription. A doctor decides the drug, dose and duration.</p>
+  {% elif not r.med_note %}
+    <p class="muted">No medicines to show.</p>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h2>{{ r.advice.title }}</h2>
+  <div class="grid2">
+    <div>
+      <h3>Food</h3>
+      <ul class="tips">{% for t in r.advice.diet %}<li>{{ t }}</li>{% endfor %}</ul>
+      <h3>Daily habits</h3>
+      <ul class="tips">{% for t in r.advice.lifestyle %}<li>{{ t }}</li>{% endfor %}</ul>
+    </div>
+    <div>
+      <h3>Keep an eye on</h3>
+      <ul class="tips">{% for t in r.advice.monitor %}<li>{{ t }}</li>{% endfor %}</ul>
+      <h3>See a doctor urgently if</h3>
+      <div class="doctor"><ul class="tips" style="margin:0">{% for t in r.advice.doctor %}<li>{{ t }}</li>{% endfor %}</ul></div>
+    </div>
+  </div>
+</div>
+
+<p>
+  {% if patient %}<a class="btn light" href="/patients">Back to patient records</a>{% else %}<a class="btn" href="/">Check another person</a>{% endif %}
+</p>
+{% endblock %}
