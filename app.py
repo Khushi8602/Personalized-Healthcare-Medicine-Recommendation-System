@@ -1,15 +1,3 @@
-"""
-app.py
-------
-Flask app for the Personalized Healthcare & Medicine Recommendation System.
-No login: open the page, fill the form, get a recommendation.
-
-Models are trained automatically on the first start (or run data_processing.py
-yourself to see the EDA and scores), then:
-    python app.py
-and open http://127.0.0.1:5000
-"""
-
 import json
 from pathlib import Path
 
@@ -21,7 +9,7 @@ from flask import Flask, abort, render_template, request, send_from_directory
 from sklearn.metrics.pairwise import cosine_similarity
 
 import data_processing
-from data_processing import FEATURES, SYMPTOMS, reasons_for
+from data_processing import FEATURES, SYMPTOMS, condition_group, reasons_for
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -29,12 +17,8 @@ MODEL_DIR = BASE_DIR / "models"
 
 app = Flask(__name__)
 
-# ---------------------------------------------------------------------------
-# Load everything once at start-up
-# ---------------------------------------------------------------------------
+
 def models_are_current():
-    """Saved models only load safely with the library versions that made them.
-    If they are missing or came from other versions, we retrain."""
     info = MODEL_DIR / "metrics.json"
     needed = ["ml_model.joblib", "dl_meta.joblib", "medicine_index.joblib"]
     if not all((MODEL_DIR / f).exists() for f in needed) or not info.exists():
@@ -58,15 +42,14 @@ if not models_are_current():
 
 try:
     ml_model, dl_model, med_index = load_models()
-except Exception as err:  # a saved file from another version can still fail to load
+except Exception as err:
     print("Could not load the saved models (%s). Retraining..." % err)
     data_processing.main()
     ml_model, dl_model, med_index = load_models()
 
 metrics = json.loads((MODEL_DIR / "metrics.json").read_text())
 profiles = metrics["profiles"]
-DISEASES = ml_model.classes_  # both models use the same sorted disease list
-
+DISEASES = ml_model.classes_
 medicines = pd.read_csv(DATA_DIR / "medicine_clean.csv").fillna("")
 patients = pd.read_csv(DATA_DIR / "patients_clean.csv")
 ALL_DISEASES = sorted(profiles.keys())
@@ -79,36 +62,6 @@ SYMPTOM_LABELS = {
     "fatigue": "Fatigue",
     "difficulty_breathing": "Difficulty breathing",
 }
-
-# ---------------------------------------------------------------------------
-# Condition groups and general health advice
-# ---------------------------------------------------------------------------
-# First group whose keyword appears in the disease name wins.
-GROUP_KEYWORDS = [
-    ("cancer", ["cancer", "lymphoma", "melanoma", "tumor"]),
-    ("mental", ["depression", "anxiety", "bipolar", "schizophrenia", "obsessive",
-                "eating disorder", "autism", "tourette"]),
-    ("neuro", ["migraine", "epilepsy", "parkinson", "alzheimer", "dementia",
-               "multiple sclerosis", "cerebral palsy", "spina"]),
-    ("cardio", ["hypertension", "hypertensive", "heart", "coronary", "stroke",
-                "atherosclerosis", "myocardial"]),
-    ("respiratory", ["asthma", "bronchitis", "pneumonia", "pulmonary", "copd",
-                     "cold", "influenza", "tuberculosis", "sinusitis", "rhinitis",
-                     "pneumothorax", "cystic", "sleep apnea"]),
-    ("endocrine", ["diabetes", "thyroid", "glycemia", "polycystic"]),
-    ("kidney", ["kidney", "urinary", "bladder"]),
-    ("digestive", ["colitis", "crohn", "pancreatitis", "liver", "cirrhosis",
-                   "cholecystitis", "diverticulitis", "hemorrhoid", "appendicitis",
-                   "gastroenteritis", "hepatitis"]),
-    ("musculoskeletal", ["arthritis", "osteoporosis", "gout", "scoliosis",
-                         "fibromyalgia", "muscular", "osteomyelitis"]),
-    ("skin", ["eczema", "psoriasis", "acne"]),
-    ("infection", ["dengue", "malaria", "typhoid", "cholera", "zika", "ebola",
-                   "rabies", "measles", "mumps", "rubella", "chickenpox", "hiv",
-                   "tetanus", "polio", "lyme", "sepsis", "tonsillitis", "otitis",
-                   "conjunctivitis", "pneumocystis"]),
-    ("genetic", ["syndrome", "hemophilia", "sickle", "anemia"]),
-]
 
 ADVICE = {
     "respiratory": {
@@ -257,33 +210,19 @@ ADVICE = {
 }
 
 
-def condition_group(disease):
-    name = disease.lower()
-    for group, words in GROUP_KEYWORDS:
-        if any(w in name for w in words):
-            return group
-    return "other"
 
-
-# ---------------------------------------------------------------------------
-# Prediction and recommendation logic
-# ---------------------------------------------------------------------------
 
 def make_row(data):
-    """data: dict with the 8 feature values. Returns a one-row DataFrame."""
     return pd.DataFrame([[data[f] for f in FEATURES]], columns=FEATURES)
 
 
 def disease_probabilities(row):
-    """Probabilities from both models, and their average (the combined view)."""
     p_ml = ml_model.predict_proba(row)[0]
     p_dl = dl_model.predict_proba(row)[0]
     return p_ml, p_dl, (p_ml + p_dl) / 2
 
 
 def predict_diseases(row, top_n=5):
-    """Top guesses ranked by the combined (ML + DL) probability, plus what each model
-    gave on its own and each model's single best pick."""
     p_ml, p_dl, p_all = disease_probabilities(row)
     order = np.argsort(p_all)[::-1][:top_n]
     guesses = [{"name": DISEASES[i],
@@ -296,8 +235,6 @@ def predict_diseases(row, top_n=5):
 
 
 def expected_risk(row):
-    """Used when no diagnosis is given: weigh each disease's usual risk level
-    by how likely the models think that disease is."""
     _, _, proba = disease_probabilities(row)
     totals = {"Low": 0.0, "Medium": 0.0, "High": 0.0}
     for p, name in zip(proba, DISEASES):
@@ -306,9 +243,6 @@ def expected_risk(row):
 
 
 def recommend_medicines(disease, symptoms, per_group=3):
-    """Pick the medicine groups that fit the disease, then rank drugs inside
-    those groups by TF-IDF similarity between the patient's text and the drug
-    description. Returns (list, note)."""
     reasons = reasons_for(disease)
     note = ""
     if not reasons:
@@ -367,9 +301,6 @@ def vitals_flags(inputs):
 
 
 def build_result(inputs, diagnosis=None, source="symptoms"):
-    """Full recommendation for one patient.
-    diagnosis: a known disease name (patient records or the form's dropdown).
-    Without it we take the model's top guess."""
     row = make_row(inputs)
     guesses, picks = predict_diseases(row)
 
@@ -412,8 +343,6 @@ def build_result(inputs, diagnosis=None, source="symptoms"):
 
 
 def read_form(form):
-    """Turn the submitted form into the 8 numbers the models expect.
-    Returns (inputs, error)."""
     try:
         age = int(form.get("age", ""))
     except ValueError:
@@ -437,10 +366,6 @@ def read_form(form):
                    "blood_pressure": bp, "cholesterol_level": chol})
     return inputs, None
 
-
-# ---------------------------------------------------------------------------
-# Routes
-# ---------------------------------------------------------------------------
 
 @app.context_processor
 def inject_metrics():
@@ -503,4 +428,4 @@ def not_found(_):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=False)  # reloader off: it would load TensorFlow twice
+    app.run(debug=True, use_reloader=False)
