@@ -1,17 +1,3 @@
-"""
-data_processing.py
-------------------
-Everything that happens before the web app: load the two CSV files, clean them,
-run the EDA, train the two final models and save them to /models.
-
-The two models (picked after comparing several candidates, see the report):
-  * ML model : Support Vector Classifier (linear kernel)
-  * DL model : small neural network (TensorFlow / Keras)
-
-Run it once:   python data_processing.py
-The Flask app (app.py) only loads what this script saves.
-"""
-
 import json
 import os
 import re
@@ -21,13 +7,16 @@ from pathlib import Path
 import joblib
 import matplotlib
 
-matplotlib.use("Agg")  # no window needed, we only save the charts to files
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import sklearn
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import KFold
 from sklearn.neural_network import MLPClassifier
 from sklearn.pipeline import make_pipeline
@@ -35,7 +24,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
 warnings.filterwarnings("ignore")
-os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")  # keep TensorFlow quiet
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
@@ -46,10 +35,10 @@ PATIENT_FILE = DATA_DIR / "Cleaned_Dataset.csv"
 MEDICINE_FILE = DATA_DIR / "medicine.csv"
 
 SYMPTOMS = ["fever", "cough", "fatigue", "difficulty_breathing"]
-# the order here matters, the app builds its input rows in exactly this order
+
 FEATURES = SYMPTOMS + ["age", "gender_male", "blood_pressure", "cholesterol_level"]
 
-# The patient file stores some disease names twice or cut off with "...".
+
 NAME_FIXES = {
     "Urinary Tract Infection (UTI)": "Urinary Tract Infection",
     "Chronic Obstructive Pulmonary...": "Chronic Obstructive Pulmonary Disease (COPD)",
@@ -59,11 +48,7 @@ NAME_FIXES = {
     "Eating Disorders (Anorexia": "Eating Disorders (Anorexia, Bulimia)",
 }
 
-# medicine.csv has one "Reason" per drug (Hypertension, Infection, Pain ...).
-# This maps a disease name to the Reason groups that fit it. First keyword hit
-# wins, so the more specific words are listed first. A disease with no match
-# gets no medicine from this file (cancers, genetic conditions, asthma, etc.
-# have no drug group in medicine.csv).
+
 DISEASE_TO_REASONS = [
     ("hypertensive", ["Hypertension"]),
     ("hypertension", ["Hypertension"]),
@@ -144,30 +129,61 @@ DISEASE_TO_REASONS = [
 ]
 
 
-# ---------------------------------------------------------------------------
-# 1. Loading and cleaning
-# ---------------------------------------------------------------------------
+
+GROUP_KEYWORDS = [
+    ("cancer", ["cancer", "lymphoma", "melanoma", "tumor"]),
+    ("mental", ["depression", "anxiety", "bipolar", "schizophrenia", "obsessive",
+                "eating disorder", "autism", "tourette"]),
+    ("neuro", ["migraine", "epilepsy", "parkinson", "alzheimer", "dementia",
+               "multiple sclerosis", "cerebral palsy", "spina"]),
+    ("cardio", ["hypertension", "hypertensive", "heart", "coronary", "stroke",
+                "atherosclerosis", "myocardial"]),
+    ("respiratory", ["asthma", "bronchitis", "pneumonia", "pulmonary", "copd",
+                     "cold", "influenza", "tuberculosis", "sinusitis", "rhinitis",
+                     "pneumothorax", "cystic", "sleep apnea"]),
+    ("endocrine", ["diabetes", "thyroid", "glycemia", "polycystic"]),
+    ("kidney", ["kidney", "urinary", "bladder"]),
+    ("digestive", ["colitis", "crohn", "pancreatitis", "liver", "cirrhosis",
+                   "cholecystitis", "diverticulitis", "hemorrhoid", "appendicitis",
+                   "gastroenteritis", "hepatitis"]),
+    ("musculoskeletal", ["arthritis", "osteoporosis", "gout", "scoliosis",
+                         "fibromyalgia", "muscular", "osteomyelitis"]),
+    ("skin", ["eczema", "psoriasis", "acne"]),
+    ("infection", ["dengue", "malaria", "typhoid", "cholera", "zika", "ebola",
+                   "rabies", "measles", "mumps", "rubella", "chickenpox", "hiv",
+                   "tetanus", "polio", "lyme", "sepsis", "tonsillitis", "otitis",
+                   "conjunctivitis", "pneumocystis"]),
+    ("genetic", ["syndrome", "hemophilia", "sickle", "anemia"]),
+]
+GROUPS = [g for g, _ in GROUP_KEYWORDS] + ["other"]
+
+
+def condition_group(disease):
+    name = disease.lower()
+    for group, words in GROUP_KEYWORDS:
+        if any(w in name for w in words):
+            return group
+    return "other"
+
+
+
 
 def load_patients():
     df = pd.read_csv(PATIENT_FILE)
     df["disease"] = df["disease"].str.strip().replace(NAME_FIXES)
 
-    # Yes/No columns -> 1/0, gender -> one column
+
     for col in SYMPTOMS:
         df[col] = (df[col].str.strip().str.lower() == "yes").astype(int)
     df["gender_male"] = (df["gender"].str.strip().str.lower() == "male").astype(int)
 
-    # The file already has scaled copies of age/bp/cholesterol. The tree models
-    # don't care about scaling, and the app takes the real values, so I only
-    # keep the raw columns.
+
     df = df.drop(columns=["age_scaled", "bp_scaled", "chol_scaled"])
     df["patient_id"] = np.arange(1, len(df) + 1)
     return df
 
 
 def clean_drug_name(raw):
-    """medicine.csv glues several pack sizes into one string, e.g.
-    'A CN Gel(Topical) 20gmA CN Soap 75gm'. Keep only the first product."""
     raw = str(raw).strip()
     hit = re.search(r"(?:\d+(?:\.\d+)?\s?(?:gm|ml|mg|mcg|iu|IU|g)|\d+\s?'[sS])(?=[A-Z])", raw)
     return raw[: hit.end()].strip() if hit else raw
@@ -176,7 +192,7 @@ def clean_drug_name(raw):
 def load_medicines():
     med = pd.read_csv(MEDICINE_FILE)
     med["drug_name"] = med["Drug_Name"].apply(clean_drug_name)
-    # the "Â" is leftover encoding junk from the original file
+
     med["description"] = (med["Description"].fillna("")
                           .str.replace("Â", "", regex=False)
                           .str.replace(r"\s+", " ", regex=True).str.strip())
@@ -186,7 +202,6 @@ def load_medicines():
 
 
 def reasons_for(disease):
-    """Return the medicine groups that fit a disease name (may be empty)."""
     name = disease.lower()
     for keyword, reasons in DISEASE_TO_REASONS:
         if keyword in name:
@@ -194,9 +209,7 @@ def reasons_for(disease):
     return []
 
 
-# ---------------------------------------------------------------------------
-# 2. EDA
-# ---------------------------------------------------------------------------
+
 
 def run_eda(patients, medicines):
     EDA_DIR.mkdir(parents=True, exist_ok=True)
@@ -211,7 +224,7 @@ def run_eda(patients, medicines):
     print("medicines:", medicines.shape, "| groups:", medicines["reason"].nunique())
     print(patients[["age", "blood_pressure", "cholesterol_level"]].describe().round(1))
 
-    # most common diseases
+
     plt.figure(figsize=(8, 6))
     top = patients["disease"].value_counts().head(15)
     sns.barplot(x=top.values, y=top.index, color="#2a7f9e")
@@ -222,7 +235,7 @@ def run_eda(patients, medicines):
     plt.savefig(EDA_DIR / "top_diseases.png", dpi=110)
     plt.close()
 
-    # risk level counts + age spread per risk level
+    
     fig, ax = plt.subplots(1, 2, figsize=(10, 4))
     order = ["Low", "Medium", "High"]
     colors = {"Low": "#4caf8a", "Medium": "#f0b429", "High": "#e05a5a"}
@@ -236,7 +249,7 @@ def run_eda(patients, medicines):
     plt.savefig(EDA_DIR / "risk_levels.png", dpi=110)
     plt.close()
 
-    # how often each symptom shows up, split by outcome
+    
     rates = patients.groupby("outcome_variable")[SYMPTOMS].mean().T * 100
     rates.plot(kind="bar", figsize=(7, 4), color=["#e07a5f", "#3d85c6"])
     plt.title("Symptom rate by outcome (%)")
@@ -246,7 +259,7 @@ def run_eda(patients, medicines):
     plt.savefig(EDA_DIR / "symptoms_by_outcome.png", dpi=110)
     plt.close()
 
-    # correlations between the numeric columns
+    
     plt.figure(figsize=(7, 5.5))
     corr = patients[FEATURES].corr()
     sns.heatmap(corr, annot=True, fmt=".2f", cmap="coolwarm", center=0)
@@ -255,7 +268,7 @@ def run_eda(patients, medicines):
     plt.savefig(EDA_DIR / "correlations.png", dpi=110)
     plt.close()
 
-    # medicine groups
+    
     plt.figure(figsize=(8, 6))
     groups = medicines["reason"].value_counts().head(15)
     sns.barplot(x=groups.values, y=groups.index, color="#7b6fb0")
@@ -268,27 +281,20 @@ def run_eda(patients, medicines):
     print("EDA charts saved in", EDA_DIR)
 
 
-# ---------------------------------------------------------------------------
-# 3. Models
-# ---------------------------------------------------------------------------
+
+ML_MODELS = {
+    "Logistic Regression": lambda: LogisticRegression(C=0.1, max_iter=3000),
+    "Random Forest": lambda: RandomForestClassifier(n_estimators=300, random_state=42),
+    "SVC (linear)": lambda: make_pipeline(StandardScaler(), SVC(kernel="linear", probability=True, random_state=42)),
+}
+CHOSEN_ML_MODEL = "Logistic Regression"
+
 
 def make_ml_model():
-    """The machine learning model: a linear Support Vector Classifier.
-    Features are scaled first (age is on a much bigger scale than the 0/1 columns).
-    probability=True lets it give a probability for every disease."""
-    return make_pipeline(StandardScaler(),
-                         SVC(kernel="linear", C=1.0, probability=True, random_state=42))
+    return ML_MODELS[CHOSEN_ML_MODEL]()
 
 
 class NeuralNet:
-    """The deep learning model: a small fully connected neural network.
-
-        8 inputs -> Dense 64 (ReLU) -> Dropout -> Dense 32 (ReLU) -> Dropout -> softmax
-
-    It is built with TensorFlow / Keras. If TensorFlow is not installed, the same
-    layer sizes are trained with scikit-learn's MLPClassifier instead, so the
-    project still runs. self.backend says which one was used."""
-
     def __init__(self, epochs=30, seed=42):
         self.epochs = epochs
         self.seed = seed
@@ -363,8 +369,6 @@ class NeuralNet:
 
 
 def environment_signature():
-    """Saved models only load safely with the same library versions that made them.
-    app.py compares this with what is installed and retrains if it differs."""
     try:
         import tensorflow as tf
         tf_version = tf.__version__
@@ -374,8 +378,6 @@ def environment_signature():
 
 
 def aligned_proba(model, X, classes):
-    """Probabilities as a (rows x all diseases) table. In a CV fold a rare disease can be
-    missing from the training part, so the columns are matched by name."""
     out = np.zeros((len(X), len(classes)))
     cols = np.searchsorted(classes, model.classes_)
     out[:, cols] = model.predict_proba(X)
@@ -383,7 +385,6 @@ def aligned_proba(model, X, classes):
 
 
 def cross_validated_proba(make_model, X, y, classes, folds=5):
-    """Out-of-fold probabilities: every row is predicted by a model that never saw it."""
     kf = KFold(n_splits=folds, shuffle=True, random_state=42)
     oof = np.zeros((len(y), len(classes)))
     for train_idx, test_idx in kf.split(X):
@@ -393,9 +394,6 @@ def cross_validated_proba(make_model, X, y, classes, folds=5):
 
 
 def top_k_scores(proba, y_idx):
-    """Top-1 and top-3 accuracy.
-    Top-3 matters because there are ~110 diseases and only 8 inputs, so 'is the real
-    disease among the three best guesses' is the fairer question."""
     order = np.argsort(-proba, axis=1)
     top1 = float(np.mean(order[:, 0] == y_idx))
     top3 = float(np.mean([t in row[:3] for t, row in zip(y_idx, order)]))
@@ -423,10 +421,27 @@ def plot_model_scores(scores):
     plt.close()
 
 
+def group_confusion(oof_proba, true_diseases, classes):
+    pred_diseases = classes[np.argmax(oof_proba, axis=1)]
+    true_g = [condition_group(d) for d in true_diseases]
+    pred_g = [condition_group(d) for d in pred_diseases]
+    cm = confusion_matrix(true_g, pred_g, labels=GROUPS)
+    return pd.DataFrame(cm, index=GROUPS, columns=GROUPS), true_g, pred_g
+
+
+def plot_confusion(cm_df, title, filename):
+    plt.figure(figsize=(9, 7.5))
+    sns.heatmap(cm_df, annot=True, fmt="d", cmap="Blues", cbar=False, linewidths=0.4)
+    plt.xlabel("Group the model predicted")
+    plt.ylabel("Real group")
+    plt.title(title)
+    plt.xticks(rotation=45, ha="right")
+    plt.tight_layout()
+    plt.savefig(EDA_DIR / filename, dpi=110)
+    plt.close()
+
+
 def build_disease_profiles(patients):
-    """For every disease: its usual risk level and how common each symptom is.
-    Risk level in this dataset is almost fixed per disease, so the app looks
-    it up here instead of training a separate model."""
     profiles = {}
     for disease, grp in patients.groupby("disease"):
         profiles[disease] = {
@@ -439,18 +454,12 @@ def build_disease_profiles(patients):
 
 
 def build_medicine_index(medicines):
-    """TF-IDF over drug description + reason, used for the content-based
-    ranking inside a medicine group."""
     text = (medicines["reason"] + " " + medicines["description"]).str.lower()
     vectorizer = TfidfVectorizer(stop_words="english", ngram_range=(1, 2),
                                  min_df=1, sublinear_tf=True)
     matrix = vectorizer.fit_transform(text)
     return vectorizer, matrix
 
-
-# ---------------------------------------------------------------------------
-# 4. Main
-# ---------------------------------------------------------------------------
 
 def main():
     MODEL_DIR.mkdir(exist_ok=True)
@@ -462,8 +471,7 @@ def main():
     X = patients[FEATURES]
     y = patients["disease"]
 
-    # Repeated rows in both the training and testing part would flatter the scores,
-    # so the scores come from the de-duplicated table. The final models are fit on everything.
+   
     unique = patients.drop(columns="patient_id").drop_duplicates().reset_index(drop=True)
     Xu, yu = unique[FEATURES], unique["disease"]
     classes = np.array(sorted(yu.unique()))
@@ -475,13 +483,32 @@ def main():
     ml_scores = top_k_scores(oof_ml, y_idx)
     dl_scores = top_k_scores(oof_dl, y_idx)
     both_scores = top_k_scores((oof_ml + oof_dl) / 2, y_idx)
-    baseline = float(yu.value_counts(normalize=True).iloc[0])  # always guess the most common disease
-    print(f"SVC (ML)            top-1 {ml_scores[0]:.3f}   top-3 {ml_scores[1]:.3f}")
-    print(f"Neural net (DL)     top-1 {dl_scores[0]:.3f}   top-3 {dl_scores[1]:.3f}")
-    print(f"ML + DL combined    top-1 {both_scores[0]:.3f}   top-3 {both_scores[1]:.3f}")
-    print(f"Baseline (most common disease)  top-1 {baseline:.3f}")
-    plot_model_scores({"ML (SVC)": ml_scores, "DL (neural net)": dl_scores,
+    baseline = float(yu.value_counts(normalize=True).iloc[0])  
+    print(f"{CHOSEN_ML_MODEL} (ML)".ljust(26) + f"top-1 {ml_scores[0]:.3f}   top-3 {ml_scores[1]:.3f}")
+    print(f"{'Neural network (DL)'.ljust(26)}top-1 {dl_scores[0]:.3f}   top-3 {dl_scores[1]:.3f}")
+    print(f"{'ML + DL combined'.ljust(26)}top-1 {both_scores[0]:.3f}   top-3 {both_scores[1]:.3f}")
+    print(f"{'Guessing'.ljust(26)}top-1 {baseline:.3f}  (always the most common disease)")
+    plot_model_scores({f"ML ({CHOSEN_ML_MODEL})": ml_scores, "DL (neural net)": dl_scores,
                        "ML + DL": both_scores, "Guessing": (baseline, None)})
+
+    
+    print("\n--- Confusion matrix by disease group (every patient predicted by a model that never saw it) ---")
+    print("How to read it: a row is the REAL group, a column is what the model SAID.")
+    print("Numbers on the diagonal are correct answers. Numbers off the diagonal are mix-ups.\n")
+    group_acc = {}
+    for label, oof in [("ML", oof_ml), ("DL", oof_dl)]:
+        cm_df, true_g, pred_g = group_confusion(oof, yu.values, classes)
+        acc = float(np.trace(cm_df.values) / cm_df.values.sum())
+        group_acc[label] = acc
+        most_common = pd.Series(true_g).value_counts(normalize=True).iloc[0]
+        print(f"{label} model, group accuracy: {acc:.3f}   (always guessing the biggest group: {most_common:.3f})")
+        if label == "ML":
+            with pd.option_context("display.width", 250, "display.max_columns", 20):
+                print(cm_df.to_string(), "\n")
+        name = CHOSEN_ML_MODEL if label == "ML" else "Neural network"
+        plot_confusion(cm_df, f"{name}: real group vs predicted group",
+                       f"confusion_{label.lower()}.png")
+        group_acc[label + "_baseline"] = float(most_common)
 
     print("\n--- Training the final models on all patients ---")
     ml_model = make_ml_model().fit(X, y)
@@ -498,15 +525,17 @@ def main():
     patients.to_csv(DATA_DIR / "patients_clean.csv", index=False)
 
     metrics = {
-        # app.py compares this with the installed libraries and retrains on a mismatch
+        
         "environment": environment_signature(),
-        "ml_name": "Support Vector Classifier (linear)",
+        "ml_name": CHOSEN_ML_MODEL,
         "dl_name": "Neural network (64-32)",
         "dl_backend": dl_model.backend,
         "ml_top1": ml_scores[0], "ml_top3": ml_scores[1],
         "dl_top1": dl_scores[0], "dl_top3": dl_scores[1],
         "combined_top1": both_scores[0], "combined_top3": both_scores[1],
         "baseline_top1": baseline,
+        "ml_group_accuracy": group_acc["ML"], "dl_group_accuracy": group_acc["DL"],
+        "group_baseline": group_acc["ML_baseline"],
         "n_patients": int(len(patients)),
         "n_unique_patients": int(len(unique)),
         "n_diseases": int(patients["disease"].nunique()),
